@@ -30,7 +30,7 @@ export const getAuthenticated: RequestHandler = async (
   }
 };
 
-export const singUp: RequestHandler<
+export const signUp: RequestHandler<
   unknown,
   unknown,
   SigningUp,
