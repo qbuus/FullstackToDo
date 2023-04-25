@@ -9,6 +9,11 @@ type SigningUp = {
   password?: string;
 };
 
+type SigningIn = {
+  username?: string;
+  password?: string;
+};
+
 export const getAuthenticated: RequestHandler = async (
   req,
   res,
@@ -75,6 +80,58 @@ export const singUp: RequestHandler<
     req.session.userId = userCreate._id;
 
     res.json(userCreate);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const SignIn: RequestHandler<
+  unknown,
+  unknown,
+  SigningIn,
+  unknown
+> = async (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  try {
+    if (!username || !password) {
+      throw createHttpError(401, "invalid parameters");
+    }
+
+    const existingUser = await user
+      .findOne({ username: username })
+      .select("+password +email")
+      .exec();
+
+    if (!existingUser) {
+      throw createHttpError(401, "invalid credentials");
+    }
+
+    const matchingPassword = bcrypt.compare(
+      password,
+      existingUser.password
+    );
+
+    if (!matchingPassword) {
+      throw createHttpError(401, "invalid password");
+    }
+
+    req.session.userId = existingUser._id;
+
+    res.status(200).json(existingUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const SingOut: RequestHandler = (req, res, next) => {
+  try {
+    req.session.destroy((error) => {
+      if (error) {
+        next(error);
+      }
+      res.sendStatus(200);
+    });
   } catch (error) {
     next(error);
   }
