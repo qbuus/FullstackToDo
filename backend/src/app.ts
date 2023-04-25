@@ -33,8 +33,8 @@ app.use(
   })
 );
 
-app.use("/api/todo/", requiredAuthentication, ToDoRoutes);
-app.use("api/users/", UserRoutes);
+app.use("/api/todo", requiredAuthentication, ToDoRoutes);
+app.use("/api/users", UserRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(createHttpError(404, "Endpoint not found"));

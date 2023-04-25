@@ -4,8 +4,8 @@ import { requiredAuthentication } from "../middleware/authentication";
 
 const router = express.Router();
 
-router.post("signup", users.signUp);
-router.post("signin", users.SignIn);
+router.post("/signup", users.signUp);
+router.post("/signin", users.SignIn);
 router.get(
   "/",
   requiredAuthentication,
