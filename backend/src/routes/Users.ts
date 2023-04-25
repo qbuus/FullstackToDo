@@ -12,3 +12,5 @@ router.get(
   users.getAuthenticated
 );
 router.post("/signout", users.SingOut);
+
+export default router;

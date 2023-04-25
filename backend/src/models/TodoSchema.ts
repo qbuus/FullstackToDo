@@ -11,4 +11,4 @@ const ToDoSchema = new Schema(
 
 type ToDo = InferSchemaType<typeof ToDoSchema>;
 
-export default model<ToDo>("User", ToDoSchema);
+export default model<ToDo>("ToDo", ToDoSchema);
