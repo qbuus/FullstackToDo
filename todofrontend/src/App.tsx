@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import NotFoundPage from "./pages/NotFoundPage";
 import { Container } from "react-bootstrap";
 import MainContent from "./pages/MainContent";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </Container>
+      <Footer />
     </BrowserRouter>
   );
 }
