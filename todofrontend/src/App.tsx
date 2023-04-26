@@ -4,6 +4,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import { Container } from "react-bootstrap";
 import MainContent from "./pages/MainContent";
 import Footer from "./components/Footer";
+import SignUp from "./components/SignUp";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<MainContent />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </Container>

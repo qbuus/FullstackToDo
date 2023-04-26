@@ -3,12 +3,12 @@ export type User = {
   email: string;
 };
 
-export type SignIn = {
+export type SignInBody = {
   username: string;
   password: string;
 };
 
-export type SignUp = {
+export type SignUpBody = {
   username: string;
   email: string;
   password: string;
