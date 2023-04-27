@@ -20,7 +20,7 @@ export default function Footer() {
   const formattedDate = dateFormat(date);
 
   return (
-    <footer className="page-footer font-small pt-4 blue bg-primary">
+    <footer className="page-footer font-small pt-4 blue bg-primary text-white">
       <div className="container-fluid text-center text-md-left">
         <div className="row">
           <div className="col-md-6 mt-md-0 mt-3">
