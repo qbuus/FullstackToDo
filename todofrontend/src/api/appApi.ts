@@ -34,3 +34,18 @@ export async function SignUpFunction(
   });
   return response.json();
 }
+
+export async function SignOutFunction() {
+  await fetchData("/api/users/signout", { method: "POST" });
+}
+
+export async function SignInFunction(
+  credentials: SignInBody
+): Promise<User> {
+  const response = await fetchData("/api/users/signin", {
+    method: "POST",
+    headers: { "Content-Type": "Application/json" },
+    body: JSON.stringify(credentials),
+  });
+  return response.json();
+}

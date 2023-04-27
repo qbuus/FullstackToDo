@@ -2,7 +2,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { User } from "../models/User";
 
 type initialStateBody = {
-  isUserAuthenticated: boolean;
+  isUserAuthenticated: true | false;
   AuthenticatedUser: User | null;
 };
 
@@ -15,8 +15,8 @@ const appSlice = createSlice({
   name: "app",
   initialState: initialAppState,
   reducers: {
-    isAuth(state) {
-      state.isUserAuthenticated = !state.isUserAuthenticated;
+    isAuth(state, action) {
+      state.isUserAuthenticated = action.payload;
     },
     authUser(state, action) {
       state.AuthenticatedUser = action.payload;

@@ -1,6 +1,6 @@
-import { SignUpFunction } from "../api/appApi";
+import { SignInFunction } from "../api/appApi";
 import { useForm } from "react-hook-form";
-import { SignUpBody } from "../models/User";
+import { SignInBody } from "../models/User";
 import TextInputField from "./InputField";
 import {
   Col,
@@ -11,17 +11,23 @@ import {
   Form,
 } from "react-bootstrap";
 import "../styles/utils.css";
+import { useDispatch } from "react-redux";
+import { isAuth, authUser } from "../redux/reduxState";
 
-export default function SignUp() {
+export default function SignIn() {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpBody>();
+  } = useForm<SignInBody>();
 
-  async function onSubmit(credentials: SignUpBody) {
+  async function onSubmit(credentials: SignInBody) {
     try {
-      await SignUpFunction(credentials);
+      await SignInFunction(credentials);
+      dispatch(isAuth(true));
+      dispatch(authUser(credentials));
     } catch (error) {
       console.error(error);
     }
@@ -37,10 +43,10 @@ export default function SignUp() {
                 <Card.Body>
                   <div className="mb-3 mt-md-4">
                     <h2 className="fw-bold mb-2 text-uppercase">
-                      Sign up
+                      Sign in
                     </h2>
                     <p className="mb-5">
-                      Please enter your data!
+                      Please enter your username and password
                     </p>
                     <div className="mb-3">
                       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -55,19 +61,6 @@ export default function SignUp() {
                           }}
                           error={errors.username}
                         />
-
-                        <TextInputField
-                          name="email"
-                          label="Email"
-                          type="email"
-                          placeholder="Email"
-                          register={register}
-                          registerOptions={{
-                            required: "Required",
-                          }}
-                          error={errors.email}
-                        />
-
                         <TextInputField
                           name="password"
                           label="Password"
@@ -85,7 +78,7 @@ export default function SignUp() {
                           className="width100"
                           variant="primary"
                         >
-                          Sign Up
+                          Sign In
                         </Button>
                       </Form>
                     </div>

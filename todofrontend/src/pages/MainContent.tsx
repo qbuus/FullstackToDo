@@ -1,3 +1,3 @@
 export default function MainContent() {
-  return <div>1</div>;
+  return <div className="vh-100">1</div>;
 }
