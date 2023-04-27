@@ -11,7 +11,7 @@ export default function Footer() {
   useEffect(() => {
     const dateInterval = setInterval(() => {
       setDate(new Date().toString());
-    }, 60000);
+    }, 1000);
     return () => {
       clearInterval(dateInterval);
     };
@@ -20,8 +20,8 @@ export default function Footer() {
   const formattedDate = dateFormat(date);
 
   return (
-    <footer className="page-footer font-small pt-4 bg-primary text-white fixed-bottom">
-      <div className="container ">
+    <footer className="page-footer font-small pt-4 blue bg-primary">
+      <div className="container-fluid text-center text-md-left">
         <div className="row">
           <div className="col-md-6 mt-md-0 mt-3">
             <h5 className="text-uppercase">Time</h5>
