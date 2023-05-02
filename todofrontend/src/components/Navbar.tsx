@@ -15,7 +15,6 @@ import { SignOutFunction } from "../api/appApi";
 
 export default function Navigation() {
   const dispatch = useDispatch();
-
   const signoutFunc = async () => {
     try {
       await SignOutFunction();
@@ -26,8 +25,8 @@ export default function Navigation() {
     }
   };
 
-  return (
-    <>
+  const AuthView = () => {
+    return (
       <Navbar
         collapseOnSelect
         fixed="top"
@@ -45,15 +44,29 @@ export default function Navigation() {
               <Nav.Link as={Link} to="About">
                 About the app
               </Nav.Link>
-              <Navbar.Text>{`Signed in as: ${useSelector(
-                (state: RootState) =>
-                  state.AuthenticatedUser?.username
-              )}`}</Navbar.Text>
-              <Button onClick={signoutFunc}>Sign out</Button>
             </Nav>
           </Navbar.Collapse>
+          <div className="d-flex gap-2 justify-content-center align-items-center">
+            <Navbar.Text>{`Signed in as: ${useSelector(
+              (state: RootState) =>
+                state.AuthenticatedUser?.username
+            )}`}</Navbar.Text>
+            <Button
+              variant="light"
+              onClick={signoutFunc}
+              as="button"
+            >
+              Sign out
+            </Button>
+          </div>
         </Container>
       </Navbar>
+    );
+  };
+
+  return (
+    <>
+      <AuthView />
     </>
   );
 }
