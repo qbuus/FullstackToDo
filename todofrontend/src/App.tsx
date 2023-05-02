@@ -14,7 +14,6 @@ function App() {
   const isUserAuthorized = useSelector(
     (state: RootState) => state.isUserAuthenticated
   );
-  console.log(isUserAuthorized);
 
   return (
     <BrowserRouter>

@@ -11,3 +11,7 @@ html {
 body {
   background-color: azure;
 }
+
+a {
+  text-decoration: none;
+}

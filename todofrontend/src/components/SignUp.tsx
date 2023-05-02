@@ -11,8 +11,11 @@ import {
   Form,
 } from "react-bootstrap";
 import "../styles/utils.css";
+import { useNavigate } from "react-router";
 
 export default function SignUp() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -22,6 +25,7 @@ export default function SignUp() {
   async function onSubmit(credentials: SignUpBody) {
     try {
       await SignUpFunction(credentials);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }

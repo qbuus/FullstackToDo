@@ -15,6 +15,7 @@ import { SignOutFunction } from "../api/appApi";
 
 export default function Navigation() {
   const dispatch = useDispatch();
+
   const signoutFunc = async () => {
     try {
       await SignOutFunction();

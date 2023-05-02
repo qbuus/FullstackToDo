@@ -13,9 +13,11 @@ import {
 import "../styles/utils.css";
 import { useDispatch } from "react-redux";
 import { isAuth, authUser } from "../redux/reduxState";
+import { useNavigate } from "react-router";
 
 export default function SignIn() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -28,6 +30,7 @@ export default function SignIn() {
       await SignInFunction(credentials);
       dispatch(isAuth(true));
       dispatch(authUser(credentials));
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
