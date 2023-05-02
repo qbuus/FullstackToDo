@@ -27,7 +27,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
         </Routes>
       </Container>
-      <Footer />
+      {isUserAuthorized ? <Footer /> : ""}
     </BrowserRouter>
   );
 }
