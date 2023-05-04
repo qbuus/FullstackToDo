@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SignInFunction } from "../api/appApi";
 import { useForm } from "react-hook-form";
 import { SignInBody } from "../models/User";
@@ -9,11 +10,13 @@ import {
   Container,
   Card,
   Form,
+  Alert,
 } from "react-bootstrap";
 import "../styles/utils.css";
 import { useDispatch } from "react-redux";
 import { isAuth, authUser } from "../redux/reduxState";
 import { useNavigate } from "react-router";
+import { UnauthorizedError } from "../errors/http_errors";
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -25,6 +28,8 @@ export default function SignIn() {
     formState: { errors, isSubmitting },
   } = useForm<SignInBody>();
 
+  const [error, setError] = useState<string | null>(null);
+
   async function onSubmit(credentials: SignInBody) {
     try {
       await SignInFunction(credentials);
@@ -32,6 +37,12 @@ export default function SignIn() {
       dispatch(authUser(credentials));
       navigate("/");
     } catch (error) {
+      if (error instanceof UnauthorizedError) {
+        setError(error.message);
+      } else {
+        alert(error);
+        console.log(error);
+      }
       console.error(error);
     }
   }
@@ -44,6 +55,9 @@ export default function SignIn() {
             <div>
               <Card className="shadow">
                 <Card.Body>
+                  {error && (
+                    <Alert variant="danger">{error}</Alert>
+                  )}
                   <div className="mb-3 mt-md-4">
                     <h2 className="fw-bold mb-2 text-uppercase">
                       Sign in
