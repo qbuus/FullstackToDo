@@ -87,7 +87,7 @@ export default function SignUp() {
                           type="submit"
                           disabled={isSubmitting}
                           className="width100"
-                          variant="primary"
+                          variant="dark"
                         >
                           Sign Up
                         </Button>

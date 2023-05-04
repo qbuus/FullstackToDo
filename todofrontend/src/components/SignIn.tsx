@@ -79,7 +79,7 @@ export default function SignIn() {
                           type="submit"
                           disabled={isSubmitting}
                           className="width100"
-                          variant="primary"
+                          variant="dark"
                         >
                           Sign In
                         </Button>

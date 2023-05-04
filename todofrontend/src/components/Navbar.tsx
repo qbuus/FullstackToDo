@@ -30,9 +30,8 @@ export default function Navigation() {
     return (
       <Navbar
         collapseOnSelect
-        fixed="top"
         expand="sm"
-        bg="primary"
+        bg="dark"
         variant="dark"
       >
         <Container>
