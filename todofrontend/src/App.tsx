@@ -9,6 +9,7 @@ import Navigation from "./components/Navbar";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/reduxState";
 import SignIn from "./components/SignIn";
+import AddToDo from "./components/AddToDo";
 
 function App() {
   const isUserAuthorized = useSelector(
@@ -24,6 +25,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/*" element={<NotFoundPage />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/add" element={<AddToDo />} />
         </Routes>
       </Container>
       {isUserAuthorized ? <Footer /> : ""}

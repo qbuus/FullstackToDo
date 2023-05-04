@@ -1,4 +1,5 @@
 import { SignUpBody, SignInBody, User } from "../models/User";
+import { ToDoInput, ToDoBody } from "../models/ToDo";
 
 async function fetchData(
   input: RequestInfo,
@@ -48,4 +49,44 @@ export async function SignInFunction(
     body: JSON.stringify(credentials),
   });
   return response.json();
+}
+
+export async function fetchToDos(): Promise<ToDoBody[]> {
+  const reponse = await fetchData("/api/todo", {
+    method: "GET",
+  });
+  return reponse.json();
+}
+
+export async function createToDo(
+  toDo: ToDoInput
+): Promise<ToDoBody> {
+  const response = await fetchData("/api/todo", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(toDo),
+  });
+  return response.json();
+}
+
+export async function updateNote(
+  toDoId: string,
+  toDo: ToDoInput
+): Promise<ToDoBody> {
+  const response = await fetchData("/api/todo/" + toDoId, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(toDo),
+  });
+  return response.json();
+}
+
+export async function deleteToDo(toDoId: string) {
+  await fetchData("api/todo/" + toDoId, {
+    method: "DELETE",
+  });
 }
