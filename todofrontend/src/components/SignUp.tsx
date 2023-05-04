@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SignUpFunction } from "../api/appApi";
 import { useForm } from "react-hook-form";
 import { SignUpBody } from "../models/User";
@@ -9,9 +10,11 @@ import {
   Container,
   Card,
   Form,
+  Alert,
 } from "react-bootstrap";
 import "../styles/utils.css";
 import { useNavigate } from "react-router";
+import { ConflictError } from "../errors/http_errors";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -22,11 +25,19 @@ export default function SignUp() {
     formState: { errors, isSubmitting },
   } = useForm<SignUpBody>();
 
+  const [error, setError] = useState<string | null>(null);
+
   async function onSubmit(credentials: SignUpBody) {
     try {
       await SignUpFunction(credentials);
       navigate("/");
     } catch (error) {
+      if (error instanceof ConflictError) {
+        setError(error.message);
+      } else {
+        alert(error);
+        console.error(error);
+      }
       console.error(error);
     }
   }
@@ -39,6 +50,9 @@ export default function SignUp() {
             <div>
               <Card className="shadow">
                 <Card.Body>
+                  {error && (
+                    <Alert variant="danger">{error}</Alert>
+                  )}
                   <div className="mb-3 mt-md-4">
                     <h2 className="fw-bold mb-2 text-uppercase">
                       Sign up
