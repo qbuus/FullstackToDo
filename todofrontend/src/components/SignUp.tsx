@@ -15,6 +15,7 @@ import {
 import "../styles/utils.css";
 import { useNavigate } from "react-router";
 import { ConflictError } from "../errors/http_errors";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -47,6 +48,17 @@ export default function SignUp() {
       <Container>
         <Row className="vh-100 d-flex justify-content-center align-items-center">
           <Col md={8} lg={6} xs={12}>
+            <div className="d-flex align-items-center justify-content-center mb-4">
+              <Link to="/">
+                <Button
+                  variant="dark"
+                  as="button"
+                  className="px-4 py-2 fs-4"
+                >
+                  Home
+                </Button>
+              </Link>
+            </div>
             <div>
               <Card className="shadow">
                 <Card.Body>
