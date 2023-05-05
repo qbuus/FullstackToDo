@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import createHttpError from "http-errors";
 import user from "../models/user";
 import bcrypt from "bcryptjs";
+import { validatePassword } from "../utils/passwordValidator";
 
 type SigningUp = {
   username?: string;
@@ -66,6 +67,15 @@ export const signUp: RequestHandler<
       throw createHttpError(
         401,
         "This email is already in use"
+      );
+    }
+
+    const checkedPassword = validatePassword(password);
+
+    if (checkedPassword) {
+      throw createHttpError(
+        401,
+        "This password is not strong enough"
       );
     }
 
