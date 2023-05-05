@@ -51,33 +51,46 @@ export default function AuthMainPage() {
 
   const ToDoGrid = () => {
     return (
-      <Row xs={1} md={2} xl={3} className={"g-4 toDoGrid"}>
-        {toDos.map((todo) => (
-          <Col key={todo._id}>
-            <Card className={"toDoCard toDo"}>
-              <Card.Body className="styles.cardBody">
-                <Card.Title className="flexCenter text-white">
-                  {todo.title}
-                  <MdDelete
-                    className="ms-auto icon"
-                    onClick={(e) => {
-                      deleteNote(todo);
-                      e.stopPropagation();
-                    }}
-                    size={25}
-                  />
-                </Card.Title>
-                <Card.Text className="cardText text-white">
-                  {todo.text}
-                </Card.Text>
-              </Card.Body>
-              <Card.Footer className="text-white">
-                {dateFormat(todo.createdAt)}
-              </Card.Footer>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      <>
+        <Link to="/add">
+          <Button
+            variant="dark"
+            as="button"
+            className="flexCenter mb-4 mt-4 blockCenter"
+          >
+            <div className="d-flex px-3 text-white px-1 fs-4">
+              Add task
+            </div>
+          </Button>
+        </Link>
+        <Row xs={1} md={2} xl={3} className={"g-4 toDoGrid"}>
+          {toDos.map((todo) => (
+            <Col key={todo._id}>
+              <Card className={"toDoCard toDo"}>
+                <Card.Body className="styles.cardBody">
+                  <Card.Title className="flexCenter text-white">
+                    {todo.title}
+                    <MdDelete
+                      className="ms-auto icon"
+                      onClick={(e) => {
+                        deleteNote(todo);
+                        e.stopPropagation();
+                      }}
+                      size={25}
+                    />
+                  </Card.Title>
+                  <Card.Text className="cardText text-white">
+                    {todo.text}
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer className="text-white">
+                  {dateFormat(todo.createdAt)}
+                </Card.Footer>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </>
     );
   };
 
@@ -112,17 +125,6 @@ export default function AuthMainPage() {
 
   return (
     <>
-      <Button
-        variant="dark"
-        as="button"
-        className="flexCenter mb-4 mt-4 blockCenter"
-      >
-        <Link to="/add">
-          <div className="d-flex px-3 text-white px-1 fs-4">
-            Add task
-          </div>
-        </Link>
-      </Button>
       {loading && (
         <div className="vh-100">
           <Spinner

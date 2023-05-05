@@ -64,6 +64,7 @@ const AddToDo = () => {
                           name="text"
                           label="Text"
                           as="textarea"
+                          maxLength={255}
                           rows={5}
                           placeholder="Text"
                           register={register}
