@@ -21,7 +21,7 @@ export default function AuthMainPage() {
   const [modal, setModal] = useState<boolean>(false);
 
   const handleClose = () => {
-    return setModal(false);
+    setModal(false);
   };
 
   useEffect(() => {

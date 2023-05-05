@@ -72,6 +72,7 @@ export default function EditModal({ data, close }: EditToDo) {
           form="addEditNoteForm"
           disabled={isSubmitting}
           variant="dark"
+          onClick={close}
         >
           Save
         </Button>
