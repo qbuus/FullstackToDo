@@ -56,9 +56,17 @@
 }
 
 .icon {
-  transition: 0.1s;
+  transition: 0.2s;
 }
 
 .icon:hover {
   scale: 1.15;
+}
+
+.edit {
+  transition: 0.2s;
+}
+
+.edit:hover {
+  scale: 1.1;
 }

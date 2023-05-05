@@ -55,6 +55,7 @@ const AddToDo = () => {
                           type="text"
                           placeholder="Title"
                           register={register}
+                          maxLength={100}
                           registerOptions={{
                             required: "Required",
                           }}

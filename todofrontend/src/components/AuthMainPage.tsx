@@ -12,11 +12,17 @@ import * as ToDoApi from "../api/appApi";
 import "../styles/utils.css";
 import { MdDelete } from "react-icons/md";
 import dateFormat from "../utils/dateFormat";
+import EditModal from "./EditModal";
 
 export default function AuthMainPage() {
   const [toDos, setToDos] = useState<ToDoBody[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
+
+  const handleClose = () => {
+    return setModal(false);
+  };
 
   useEffect(() => {
     async function loadToDo() {
@@ -67,7 +73,7 @@ export default function AuthMainPage() {
           {toDos.map((todo) => (
             <Col key={todo._id}>
               <Card className={"toDoCard toDo"}>
-                <Card.Body className="styles.cardBody">
+                <Card.Body className="cardBody">
                   <Card.Title className="flexCenter text-white">
                     {todo.title}
                     <MdDelete
@@ -83,10 +89,23 @@ export default function AuthMainPage() {
                     {todo.text}
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer className="text-white">
-                  {dateFormat(todo.createdAt)}
+                <Card.Footer className="text-white d-flex justify-content-between align-items-center">
+                  <div>{dateFormat(todo.createdAt)}</div>
+                  <Button
+                    as="button"
+                    variant="light"
+                    className="edit px-2 py-1"
+                    onClick={() => setModal(true)}
+                  >
+                    Edit
+                  </Button>
                 </Card.Footer>
               </Card>
+              {modal && (
+                <>
+                  <EditModal data={todo} close={handleClose} />
+                </>
+              )}
             </Col>
           ))}
         </Row>
