@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "./redux/reduxState";
 import SignIn from "./components/SignIn";
 import AddToDo from "./components/AddToDo";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const isUserAuthorized = useSelector(
@@ -17,19 +18,22 @@ function App() {
   );
 
   return (
-    <BrowserRouter>
-      {isUserAuthorized ? <Navigation /> : ""}
-      <Container>
-        <Routes>
-          <Route path="/" element={<MainContent />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/*" element={<NotFoundPage />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/add" element={<AddToDo />} />
-        </Routes>
-      </Container>
-      {isUserAuthorized ? <Footer /> : ""}
-    </BrowserRouter>
+    <>
+      <Toaster />
+      <BrowserRouter>
+        {isUserAuthorized ? <Navigation /> : ""}
+        <Container>
+          <Routes>
+            <Route path="/" element={<MainContent />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/*" element={<NotFoundPage />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/add" element={<AddToDo />} />
+          </Routes>
+        </Container>
+        {isUserAuthorized ? <Footer /> : ""}
+      </BrowserRouter>
+    </>
   );
 }
 

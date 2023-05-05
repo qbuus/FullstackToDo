@@ -7,24 +7,24 @@ export default function NotAuthMainPage() {
       <div>
         <Row>
           <Col>
-            <Button variant="light" as="button">
-              <Link to="/signup">
+            <Link to="/signup">
+              <Button variant="light" as="button">
                 <div className="d-flex px-5 text-black px-5 py-3 fs-2">
                   Sign up
                 </div>
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </Col>
         </Row>
       </div>
       <div>
-        <Button variant="dark" as="button">
-          <Link to="/signin">
+        <Link to="/signin">
+          <Button variant="dark" as="button">
             <div className="d-flex px-3 text-white px-2">
               Already have an account
             </div>
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
     </div>
   );
