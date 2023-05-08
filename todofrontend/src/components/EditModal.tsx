@@ -36,12 +36,7 @@ export default function EditModal({ data, close }: EditToDo) {
   }
 
   return (
-    <Modal
-      show
-      onHide={close}
-      backdrop="static"
-      keyboard={true}
-    >
+    <Modal show onHide={close} backdrop keyboard={true}>
       <Modal.Header closeButton>
         <Modal.Title>Edit</Modal.Title>
       </Modal.Header>
