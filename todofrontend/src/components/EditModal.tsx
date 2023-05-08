@@ -3,6 +3,8 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import * as ToDoApi from "../api/appApi";
 import TextInputField from "./InputField";
+import { useDispatch } from "react-redux";
+import { ToDos } from "../redux/reduxState";
 
 type EditToDo = {
   data: ToDoBody;
@@ -10,6 +12,8 @@ type EditToDo = {
 };
 
 export default function EditModal({ data, close }: EditToDo) {
+  const dispatch = useDispatch();
+  console.log(data);
   const {
     register,
     handleSubmit,
@@ -21,9 +25,10 @@ export default function EditModal({ data, close }: EditToDo) {
     },
   });
 
-  async function onEdit(input: ToDoBody) {
+  async function onSubmit(input: ToDoBody) {
     try {
       await ToDoApi.updateNote(data._id, input);
+      close();
     } catch (error) {
       console.error(error);
       alert(error);
@@ -43,7 +48,7 @@ export default function EditModal({ data, close }: EditToDo) {
       <Modal.Body>
         <Form
           id="addEditNoteForm"
-          onSubmit={handleSubmit(onEdit)}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <TextInputField
             name="title"
@@ -68,11 +73,18 @@ export default function EditModal({ data, close }: EditToDo) {
       </Modal.Body>
       <Modal.Footer>
         <Button
+          type="button"
+          disabled={isSubmitting}
+          variant="light"
+          onClick={close}
+        >
+          Close
+        </Button>
+        <Button
           type="submit"
           form="addEditNoteForm"
           disabled={isSubmitting}
           variant="dark"
-          onClick={close}
         >
           Save
         </Button>

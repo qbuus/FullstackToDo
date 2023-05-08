@@ -110,9 +110,7 @@ export const updateToDos: RequestHandler<
       createHttpError(400, "Please fill in the title field");
     }
 
-    const ToDo = await TodoSchema.findById({
-      _id: id,
-    }).exec();
+    const ToDo = await TodoSchema.findById({ _id: id }).exec();
 
     if (!ToDo) {
       throw createHttpError(404, "To Do not found");
@@ -125,9 +123,9 @@ export const updateToDos: RequestHandler<
     ToDo.title = newTitle;
     ToDo.text = newText;
 
-    const updatedToDo = await ToDo.save();
+    const updated = await ToDo.save();
 
-    res.status(200).json(updatedToDo);
+    res.status(200).json(updated);
   } catch (error) {
     next(error);
   }

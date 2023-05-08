@@ -13,9 +13,14 @@ import "../styles/utils.css";
 import { MdDelete } from "react-icons/md";
 import dateFormat from "../utils/dateFormat";
 import EditModal from "./EditModal";
+import { useDispatch, useSelector } from "react-redux";
+import { ToDos, RootState } from "../redux/reduxState";
 
 export default function AuthMainPage() {
-  const [toDos, setToDos] = useState<ToDoBody[]>([]);
+  const dispatch = useDispatch();
+  const ToDoSelector = useSelector(
+    (state: RootState) => state.ToDoList
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
@@ -30,7 +35,7 @@ export default function AuthMainPage() {
         setLoading(true);
         setError(false);
         const response = await ToDoApi.fetchToDos();
-        setToDos(response);
+        dispatch(ToDos(response));
       } catch (error) {
         console.error(error);
         setError(true);
@@ -39,16 +44,15 @@ export default function AuthMainPage() {
       }
     }
     loadToDo();
-  }, []);
+  }, [dispatch]);
 
   async function deleteNote(todo: ToDoBody) {
     try {
       await ToDoApi.deleteToDo(todo._id);
-      setToDos(
-        toDos.filter(
-          (existingToDo) => existingToDo._id !== todo._id
-        )
+      const filterOfTodo = ToDoSelector.filter(
+        (existingToDo) => existingToDo._id !== todo._id
       );
+      dispatch(ToDos(filterOfTodo));
     } catch (error) {
       console.log(error);
       alert(error);
@@ -70,7 +74,7 @@ export default function AuthMainPage() {
           </Button>
         </Link>
         <Row xs={1} md={2} xl={3} className={"g-4 toDoGrid"}>
-          {toDos.map((todo) => (
+          {ToDoSelector.map((todo) => (
             <Col key={todo._id}>
               <Card className={"toDoCard toDo"}>
                 <Card.Body className="cardBody">
@@ -160,7 +164,7 @@ export default function AuthMainPage() {
       )}
       {!error && !loading && (
         <Fragment>
-          {toDos.length > 0 ? (
+          {ToDoSelector.length > 0 ? (
             <div className="vh-100">
               <ToDoGrid />
             </div>
@@ -172,3 +176,9 @@ export default function AuthMainPage() {
     </>
   );
 }
+
+// ToDos(
+//   toDos.filter(
+//     (existingToDo) => existingToDo._id !== todo._id
+//   )
+// );

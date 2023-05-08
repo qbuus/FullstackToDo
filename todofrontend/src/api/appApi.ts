@@ -75,7 +75,7 @@ export async function updateNote(
   toDoId: string,
   toDo: ToDoInput
 ): Promise<ToDoBody> {
-  const response = await fetchData("/api/todo/" + toDoId, {
+  const response = await fetchData(`/api/todo/${toDoId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
