@@ -12,6 +12,7 @@ import {
 } from "../redux/reduxState";
 import { Link } from "react-router-dom";
 import { SignOutFunction } from "../api/appApi";
+import toast from "react-hot-toast";
 
 export default function Navigation() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function Navigation() {
       await SignOutFunction();
       dispatch(isAuth(false));
       dispatch(authUser(null));
+      toast.success("You have been logged out");
     } catch (error) {
       console.error(error);
     }

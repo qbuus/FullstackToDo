@@ -11,6 +11,7 @@ import { RootState } from "./redux/reduxState";
 import SignIn from "./components/SignIn";
 import AddToDo from "./components/AddToDo";
 import EditModal from "./components/EditModal";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const isUserAuthorized = useSelector(
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <>
+      <Toaster />
       <BrowserRouter>
         {isUserAuthorized ? <Navigation /> : ""}
         <Container>

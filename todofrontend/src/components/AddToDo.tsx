@@ -60,6 +60,10 @@ const AddToDo = () => {
                     <h2 className="fw-bold mb-2 text-uppercase">
                       Add to do
                     </h2>
+                    <p className="fw-bold">
+                      Your new to do will be automatically
+                      deleted after 1 hour
+                    </p>
                     <div className="mb-3 mt-4">
                       <Form
                         id="addEditNoteForm"

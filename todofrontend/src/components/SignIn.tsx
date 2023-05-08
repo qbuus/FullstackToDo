@@ -18,6 +18,7 @@ import { isAuth, authUser } from "../redux/reduxState";
 import { useNavigate } from "react-router";
 import { UnauthorizedError } from "../errors/http_errors";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export default function SignIn() {
       await SignInFunction(credentials);
       dispatch(isAuth(true));
       dispatch(authUser(credentials));
+      toast.success("You are now signed in");
       navigate("/");
     } catch (error) {
       if (error instanceof UnauthorizedError) {

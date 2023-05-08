@@ -18,6 +18,7 @@ import {
   RootState,
   EditToDo,
 } from "../redux/reduxState";
+import toast from "react-hot-toast";
 
 export default function AuthMainPage() {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ export default function AuthMainPage() {
       const filterOfTodo = ToDoSelector.filter(
         (existingToDo) => existingToDo._id !== todo._id
       );
+      toast.success("To do has been successfully deleted");
       dispatch(ToDos(filterOfTodo));
     } catch (error) {
       console.log(error);
@@ -92,7 +94,11 @@ export default function AuthMainPage() {
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-white d-flex justify-content-between align-items-center">
-                  <div>{dateFormat(todo.createdAt)}</div>
+                  <div>
+                    {todo.updatedAt > todo.createdAt
+                      ? dateFormat(todo.updatedAt)
+                      : dateFormat(todo.createdAt)}
+                  </div>
                   <Link to={`/edit/${todo._id}`}>
                     <Button
                       as="button"

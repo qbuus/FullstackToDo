@@ -16,6 +16,7 @@ import "../styles/utils.css";
 import { useNavigate } from "react-router";
 import { ConflictError } from "../errors/http_errors";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export default function SignUp() {
   async function onSubmit(credentials: SignUpBody) {
     try {
       await SignUpFunction(credentials);
+      toast.success("you can now sign in");
       navigate("/");
     } catch (error) {
       if (error instanceof ConflictError) {
@@ -69,9 +71,16 @@ export default function SignUp() {
                     <h2 className="fw-bold mb-2 text-uppercase">
                       Sign up
                     </h2>
-                    <p className="mb-5">
-                      Please enter your data!
-                    </p>
+                    <div className="mb-5 mt-3">
+                      <p>Please enter your data!</p>
+                      <div>
+                        <p className="fw-bold">
+                          Your account will be automatically
+                          deleted after 1 hour
+                        </p>
+                      </div>
+                    </div>
+
                     <div className="mb-3">
                       <Form onSubmit={handleSubmit(onSubmit)}>
                         <TextInputField
