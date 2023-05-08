@@ -82,6 +82,7 @@ export const createToDo: RequestHandler<
       userId: authenticatedUser,
       title: title,
       text: text,
+      expireAt: new Date(),
     });
     res.status(200).json(newToDo);
   } catch (error) {

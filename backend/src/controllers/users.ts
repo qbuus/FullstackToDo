@@ -85,6 +85,7 @@ export const signUp: RequestHandler<
       username: username,
       email: email,
       password: hashedPassoword,
+      expireAt: new Date(),
     });
 
     req.session.userId = userCreate._id;

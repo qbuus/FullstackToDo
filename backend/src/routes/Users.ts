@@ -7,7 +7,7 @@ const createAccountLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,
   max: 2,
   message:
-    "Too many account creation requests. It is limited to 1 request per 1 minute",
+    "Too many account creation requests. It is limited to 2 request per 1 minutes",
   standardHeaders: true,
   legacyHeaders: false,
   statusCode: 429,

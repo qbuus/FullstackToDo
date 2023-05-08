@@ -27,6 +27,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 60 * 60 * 1000,
+      // 1 hour //
     },
     rolling: true,
     store: MongoStore.create({ mongoUrl: env.MONGO }),

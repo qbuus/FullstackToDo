@@ -5,6 +5,7 @@ const ToDoSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, required: true },
     title: { type: String, required: true },
     text: { type: String, required: false },
+    expireAt: { type: Date, expires: 3600 },
   },
   { timestamps: true }
 );
