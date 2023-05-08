@@ -13,11 +13,15 @@ import env from "./utils/validateEnv";
 import ToDoRoutes from "./routes/ToDo";
 import UserRoutes from "./routes/Users";
 import { requiredAuthentication } from "./middleware/authentication";
+import cors from "cors";
+import mongoose from "mongoose";
+
+const PORT = env.PORT || 8020;
 
 const app = express();
 
+app.use(cors());
 app.use(morgan("dev"));
-
 app.use(express.json());
 
 app.use(
@@ -59,5 +63,18 @@ app.use(
     res.status(status).json({ error: errorMessage });
   }
 );
+
+mongoose
+  .connect(env.MONGO)
+  .then(() => {
+    if (!PORT) {
+      return;
+    } else {
+      app.listen(PORT, () => {
+        console.log(`server is running`);
+      });
+    }
+  })
+  .catch(console.error);
 
 export default app;
