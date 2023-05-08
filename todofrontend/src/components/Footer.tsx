@@ -33,7 +33,7 @@ export default function Footer() {
           <div className="col-md-3 mb-md-0 mb-3">
             <ul className="list-unstyled">
               <li>
-                <a href="https://github.com/qbuus">
+                <a href="https://github.com/qbuus/FullstackToDo">
                   <VscGithubAlt size={30} color="white" />
                 </a>
               </li>
