@@ -12,9 +12,12 @@ import * as ToDoApi from "../api/appApi";
 import "../styles/utils.css";
 import { MdDelete } from "react-icons/md";
 import dateFormat from "../utils/dateFormat";
-import EditModal from "./EditModal";
 import { useDispatch, useSelector } from "react-redux";
-import { ToDos, RootState } from "../redux/reduxState";
+import {
+  ToDos,
+  RootState,
+  EditToDo,
+} from "../redux/reduxState";
 
 export default function AuthMainPage() {
   const dispatch = useDispatch();
@@ -23,11 +26,6 @@ export default function AuthMainPage() {
   );
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
-  const [modal, setModal] = useState<boolean>(false);
-
-  const handleClose = () => {
-    setModal(false);
-  };
 
   useEffect(() => {
     async function loadToDo() {
@@ -95,21 +93,18 @@ export default function AuthMainPage() {
                 </Card.Body>
                 <Card.Footer className="text-white d-flex justify-content-between align-items-center">
                   <div>{dateFormat(todo.createdAt)}</div>
-                  <Button
-                    as="button"
-                    variant="light"
-                    className="edit px-2 py-1"
-                    onClick={() => setModal(true)}
-                  >
-                    Edit
-                  </Button>
+                  <Link to={`/edit/${todo._id}`}>
+                    <Button
+                      as="button"
+                      variant="light"
+                      className="edit px-2 py-1"
+                      onClick={() => dispatch(EditToDo(todo))}
+                    >
+                      Edit
+                    </Button>
+                  </Link>
                 </Card.Footer>
               </Card>
-              {modal && (
-                <>
-                  <EditModal data={todo} close={handleClose} />
-                </>
-              )}
             </Col>
           ))}
         </Row>
@@ -176,9 +171,3 @@ export default function AuthMainPage() {
     </>
   );
 }
-
-// ToDos(
-//   toDos.filter(
-//     (existingToDo) => existingToDo._id !== todo._id
-//   )
-// );

@@ -6,12 +6,14 @@ type initialStateBody = {
   isUserAuthenticated: true | false;
   AuthenticatedUser: User | null;
   ToDoList: ToDoBody[];
+  EditSingleToDo: ToDoBody | null;
 };
 
 const initialAppState: initialStateBody = {
   isUserAuthenticated: false,
   AuthenticatedUser: null,
   ToDoList: [],
+  EditSingleToDo: null,
 };
 
 const appSlice = createSlice({
@@ -27,6 +29,9 @@ const appSlice = createSlice({
     ToDos(state, action) {
       state.ToDoList = action.payload;
     },
+    EditToDo(state, action) {
+      state.EditSingleToDo = action.payload;
+    },
   },
 });
 
@@ -34,7 +39,8 @@ const store = configureStore({
   reducer: appSlice.reducer,
 });
 
-export const { isAuth, authUser, ToDos } = appSlice.actions;
+export const { isAuth, authUser, ToDos, EditToDo } =
+  appSlice.actions;
 
 export default store;
 

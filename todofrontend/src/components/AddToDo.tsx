@@ -12,9 +12,13 @@ import { ToDoInput } from "../models/ToDo";
 import "../styles/utils.css";
 import { useNavigate } from "react-router";
 import * as ToDoApi from "../api/appApi";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ToDos } from "../redux/reduxState";
 
 const AddToDo = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -24,7 +28,8 @@ const AddToDo = () => {
 
   async function onSubmit(input: ToDoInput) {
     try {
-      await ToDoApi.createToDo(input);
+      const response = await ToDoApi.createToDo(input);
+      dispatch(ToDos(response));
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -37,6 +42,17 @@ const AddToDo = () => {
       <Container>
         <Row className="vh-100 d-flex justify-content-center align-items-center">
           <Col md={8} lg={6} xs={12}>
+            <div className="d-flex align-items-center justify-content-center mb-4">
+              <Link to="/">
+                <Button
+                  variant="dark"
+                  as="button"
+                  className="px-4 py-2 fs-4"
+                >
+                  Home
+                </Button>
+              </Link>
+            </div>
             <div>
               <Card className="shadow">
                 <Card.Body>
