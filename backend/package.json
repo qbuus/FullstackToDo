@@ -4,18 +4,11 @@
   "description": "",
   "main": "dist/index.js",
   "type": "commonjs",
-  "pre-commit": [
-    "ts.check",
-    "build",
-    "add-build"
-  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon api/index.ts",
     "eslint": "eslint . --ext .ts",
-    "ts.check": "tsc --project tsconfig.json",
-    "build": "rimraf dist && tsc",
-    "add-build": "git add dist"
+    "build": "tsc -p ."
   },
   "author": "",
   "license": "ISC",
