@@ -12,7 +12,6 @@ import MongoStore from "connect-mongo";
 import env from "./utils/validateEnv";
 import ToDoRoutes from "./routes/ToDo";
 import UserRoutes from "./routes/Users";
-import { requiredAuthentication } from "./middleware/authentication";
 import cors from "cors";
 import mongoose from "mongoose";
 
@@ -38,8 +37,8 @@ app.use(
   })
 );
 
-app.use("/api/todo", requiredAuthentication, ToDoRoutes);
-app.use("/api/users", UserRoutes);
+app.use("/api", ToDoRoutes);
+app.use("/api", UserRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(createHttpError(404, "Endpoint not found"));
@@ -77,4 +76,4 @@ mongoose
   })
   .catch(console.error);
 
-export default app;
+module.exports = app;

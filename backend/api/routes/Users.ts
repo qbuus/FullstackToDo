@@ -15,13 +15,21 @@ const createAccountLimiter = rateLimit({
 
 const router = express.Router();
 
-router.post("/signup", createAccountLimiter, users.signUp);
-router.post("/signin", createAccountLimiter, users.SignIn);
+router.post(
+  "/users/signup",
+  createAccountLimiter,
+  users.signUp
+);
+router.post(
+  "/users/signin",
+  createAccountLimiter,
+  users.SignIn
+);
 router.get(
-  "/",
+  "/users/",
   requiredAuthentication,
   users.getAuthenticated
 );
-router.post("/signout", users.SingOut);
+router.post("/users/signout", users.SingOut);
 
 export default router;
