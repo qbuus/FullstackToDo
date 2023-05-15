@@ -14,7 +14,7 @@ import UserRoutes from "./routes/Users";
 import cors from "cors";
 import mongoose from "mongoose";
 
-const PORT = env.PORT || 8020;
+const PORT = env.PORT;
 
 const app = express();
 
@@ -64,17 +64,12 @@ app.use(
   }
 );
 
-mongoose
-  .connect(env.MONGO)
-  .then(() => {
-    if (!PORT) {
-      return;
-    } else {
-      app.listen(PORT, () => {
-        console.log(`server is running`);
-      });
-    }
-  })
-  .catch(console.error);
+mongoose.connect(env.MONGO);
+
+if (PORT) {
+  app.listen(PORT, () => {
+    console.log(`server is running`);
+  });
+}
 
 export default app;
