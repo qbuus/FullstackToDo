@@ -8,7 +8,6 @@ import express, {
 import createHttpError, { isHttpError } from "http-errors";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import env from "./utils/validateEnv";
 import ToDoRoutes from "./routes/ToDo";
 import UserRoutes from "./routes/Users";
 import cors from "cors";
@@ -23,7 +22,7 @@ app.use(express.json());
 
 app.use(
   session({
-    secret: env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET as string,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -31,11 +30,11 @@ app.use(
       // 1 hour //
     },
     rolling: true,
-    store: MongoStore.create({ mongoUrl: env.MONGO }),
+    store: MongoStore.create({ mongoUrl: process.env.MONGO }),
   })
 );
 
-mongoose.connect(env.MONGO);
+mongoose.connect(process.env.MONGO as string);
 app.get("/", (req: Request, res: Response) => {
   return res.send("works");
 });
@@ -64,8 +63,6 @@ app.use(
     res.status(status).json({ error: errorMessage });
   }
 );
-
-mongoose.connect(env.MONGO);
 
 // if (PORT) {
 //   app.listen(PORT, () => {
