@@ -13,8 +13,6 @@ import UserRoutes from "./routes/Users";
 import cors from "cors";
 import mongoose from "mongoose";
 
-// const PORT = env.PORT;
-
 const app = express();
 
 app.use(cors());
@@ -22,7 +20,7 @@ app.use(express.json());
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET as string,
+    secret: process.env.SESSION_SECRET as string | string[],
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -34,12 +32,9 @@ app.use(
   })
 );
 
-mongoose.connect(process.env.MONGO as string);
-app.get("/", (req: Request, res: Response) => {
-  return res.send("works");
-});
 app.use("/api", ToDoRoutes);
 app.use("/api", UserRoutes);
+mongoose.connect(process.env.MONGO as string);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(createHttpError(404, "Endpoint not found"));
@@ -63,11 +58,5 @@ app.use(
     res.status(status).json({ error: errorMessage });
   }
 );
-
-// if (PORT) {
-//   app.listen(PORT, () => {
-//     console.log(`server is running`);
-//   });
-// }
 
 export default app;
