@@ -1,8 +1,6 @@
 import { SignUpBody, SignInBody, User } from "../models/User";
 import { ToDoInput, ToDoBody } from "../models/ToDo";
 
-const mainRoute = "backend-qbuus.vercel.app";
-
 async function fetchData(
   input: RequestInfo,
   init?: RequestInit
@@ -29,7 +27,7 @@ export async function SignUpFunction(
   credentials: SignUpBody
 ): Promise<User> {
   const response = await fetchData(
-    `${mainRoute}/api/users/signup`,
+    "backend-qbuus.vercel.app/api/users/signup/",
     {
       method: "POST",
       headers: {
@@ -42,16 +40,19 @@ export async function SignUpFunction(
 }
 
 export async function SignOutFunction() {
-  await fetchData(`${mainRoute}/api/users/signout`, {
-    method: "POST",
-  });
+  await fetchData(
+    "backend-qbuus.vercel.app/api/users/signout/",
+    {
+      method: "POST",
+    }
+  );
 }
 
 export async function SignInFunction(
   credentials: SignInBody
 ): Promise<User> {
   const response = await fetchData(
-    `${mainRoute}/api/users/signin`,
+    "backend-qbuus.vercel.app/api/users/signin/",
     {
       method: "POST",
       headers: {
@@ -64,22 +65,28 @@ export async function SignInFunction(
 }
 
 export async function fetchToDos(): Promise<ToDoBody[]> {
-  const reponse = await fetchData(`${mainRoute}/api/todo`, {
-    method: "GET",
-  });
+  const reponse = await fetchData(
+    "backend-qbuus.vercel.app/api/todo/",
+    {
+      method: "GET",
+    }
+  );
   return reponse.json();
 }
 
 export async function createToDo(
   toDo: ToDoInput
 ): Promise<ToDoBody> {
-  const response = await fetchData(`${mainRoute}/api/todo`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(toDo),
-  });
+  const response = await fetchData(
+    "backend-qbuus.vercel.app/api/todo/",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(toDo),
+    }
+  );
   return response.json();
 }
 
@@ -88,7 +95,7 @@ export async function updateNote(
   toDo: ToDoInput
 ): Promise<ToDoBody> {
   const response = await fetchData(
-    `${mainRoute}/api/todo/${toDoId}`,
+    `backend-qbuus.vercel.app/api/todo/${toDoId}/`,
     {
       method: "PATCH",
       headers: {
@@ -101,7 +108,10 @@ export async function updateNote(
 }
 
 export async function deleteToDo(toDoId: string) {
-  await fetchData(`${mainRoute}/api/todo/` + toDoId, {
-    method: "DELETE",
-  });
+  await fetchData(
+    "backend-qbuus.vercel.app/api/todo/" + toDoId,
+    {
+      method: "DELETE",
+    }
+  );
 }
