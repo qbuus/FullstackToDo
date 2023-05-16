@@ -1,6 +1,8 @@
 import { SignUpBody, SignInBody, User } from "../models/User";
 import { ToDoInput, ToDoBody } from "../models/ToDo";
 
+const default_route = "https://backend-swart-rho.vercel.app";
+
 async function fetchData(
   input: RequestInfo,
   init?: RequestInit
@@ -26,48 +28,62 @@ async function fetchData(
 export async function SignUpFunction(
   credentials: SignUpBody
 ): Promise<User> {
-  const response = await fetchData("/api/users/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "Application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
+  const response = await fetchData(
+    `${default_route}/api/users/signup`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify(credentials),
+    }
+  );
   return response.json();
 }
 
 export async function SignOutFunction() {
-  await fetchData("/api/users/signout", { method: "POST" });
+  await fetchData(`${default_route}/api/users/signout`, {
+    method: "POST",
+  });
 }
 
 export async function SignInFunction(
   credentials: SignInBody
 ): Promise<User> {
-  const response = await fetchData("/api/users/signin", {
-    method: "POST",
-    headers: { "Content-Type": "Application/json" },
-    body: JSON.stringify(credentials),
-  });
+  const response = await fetchData(
+    `${default_route}/api/users/signin`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "Application/json" },
+      body: JSON.stringify(credentials),
+    }
+  );
   return response.json();
 }
 
 export async function fetchToDos(): Promise<ToDoBody[]> {
-  const reponse = await fetchData("/api/todo", {
-    method: "GET",
-  });
+  const reponse = await fetchData(
+    `${default_route}/api/todo`,
+    {
+      method: "GET",
+    }
+  );
   return reponse.json();
 }
 
 export async function createToDo(
   toDo: ToDoInput
 ): Promise<ToDoBody> {
-  const response = await fetchData("/api/todo", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(toDo),
-  });
+  const response = await fetchData(
+    `${default_route}/api/todo`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(toDo),
+    }
+  );
   return response.json();
 }
 
@@ -75,18 +91,21 @@ export async function updateNote(
   toDoId: string,
   toDo: ToDoInput
 ): Promise<ToDoBody> {
-  const response = await fetchData(`/api/todo/${toDoId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(toDo),
-  });
+  const response = await fetchData(
+    `${default_route}/api/todo/${toDoId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(toDo),
+    }
+  );
   return response.json();
 }
 
 export async function deleteToDo(toDoId: string) {
-  await fetchData("api/todo/" + toDoId, {
+  await fetchData(`${default_route}api/todo/` + toDoId, {
     method: "DELETE",
   });
 }

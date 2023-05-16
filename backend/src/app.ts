@@ -5,12 +5,12 @@ import express, {
   Request,
   Response,
 } from "express";
+import cors from "cors";
 import createHttpError, { isHttpError } from "http-errors";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import ToDoRoutes from "./routes/ToDo";
 import UserRoutes from "./routes/Users";
-import cors from "cors";
 import mongoose from "mongoose";
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET as string | string[],
+    secret: process.env.SESSION_SECRET as string,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -28,7 +28,10 @@ app.use(
       // 1 hour //
     },
     rolling: true,
-    store: MongoStore.create({ mongoUrl: process.env.MONGO }),
+    store: MongoStore.create({
+      mongoUrl: process.env
+        .MONGODB_CONNECTION_STRING as string,
+    }),
   })
 );
 
