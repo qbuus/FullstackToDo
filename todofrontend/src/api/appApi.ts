@@ -1,7 +1,7 @@
 import { SignUpBody, SignInBody, User } from "../models/User";
 import { ToDoInput, ToDoBody } from "../models/ToDo";
 
-const mainRoute = "http://localhost:8010";
+const mainRoute = "https://backend-qbuus.vercel.app";
 
 async function fetchData(
   input: RequestInfo,
@@ -29,7 +29,7 @@ export async function SignUpFunction(
   credentials: SignUpBody
 ): Promise<User> {
   const response = await fetchData(
-    `https://backend-qbuus.vercel.app/api/users/signup`,
+    `${mainRoute}/api/users/signup`,
     {
       method: "POST",
       headers: {
@@ -42,22 +42,27 @@ export async function SignUpFunction(
 }
 
 export async function SignOutFunction() {
-  await fetchData("/api/users/signout", { method: "POST" });
+  await fetchData(`${mainRoute}/api/users/signout`, {
+    method: "POST",
+  });
 }
 
 export async function SignInFunction(
   credentials: SignInBody
 ): Promise<User> {
-  const response = await fetchData("/api/users/signin", {
-    method: "POST",
-    headers: { "Content-Type": "Application/json" },
-    body: JSON.stringify(credentials),
-  });
+  const response = await fetchData(
+    `${mainRoute}/api/users/signin`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "Application/json" },
+      body: JSON.stringify(credentials),
+    }
+  );
   return response.json();
 }
 
 export async function fetchToDos(): Promise<ToDoBody[]> {
-  const reponse = await fetchData("/api/todo", {
+  const reponse = await fetchData(`${mainRoute}/api/todo`, {
     method: "GET",
   });
   return reponse.json();
@@ -66,7 +71,7 @@ export async function fetchToDos(): Promise<ToDoBody[]> {
 export async function createToDo(
   toDo: ToDoInput
 ): Promise<ToDoBody> {
-  const response = await fetchData("/api/todo", {
+  const response = await fetchData(`${mainRoute}/api/todo`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -80,18 +85,21 @@ export async function updateNote(
   toDoId: string,
   toDo: ToDoInput
 ): Promise<ToDoBody> {
-  const response = await fetchData(`/api/todo/${toDoId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(toDo),
-  });
+  const response = await fetchData(
+    `${mainRoute}/api/todo/${toDoId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(toDo),
+    }
+  );
   return response.json();
 }
 
 export async function deleteToDo(toDoId: string) {
-  await fetchData("api/todo/" + toDoId, {
+  await fetchData(`${mainRoute}/api/todo/` + toDoId, {
     method: "DELETE",
   });
 }

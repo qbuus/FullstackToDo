@@ -74,7 +74,7 @@ export default function AuthMainPage() {
           </Button>
         </Link>
         <Row xs={1} md={2} xl={3} className={"g-4 toDoGrid"}>
-          {ToDoSelector.map((todo) => (
+          {ToDoSelector?.map((todo) => (
             <Col key={todo._id}>
               <Card className={"toDoCard toDo"}>
                 <Card.Body className="cardBody">
@@ -165,7 +165,7 @@ export default function AuthMainPage() {
       )}
       {!error && !loading && (
         <Fragment>
-          {ToDoSelector.length > 0 ? (
+          {ToDoSelector?.length > 0 ? (
             <div className="vh-100">
               <ToDoGrid />
             </div>
