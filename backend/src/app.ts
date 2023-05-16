@@ -37,8 +37,6 @@ app.use(
 
 app.use("/api", ToDoRoutes);
 app.use("/api", UserRoutes);
-mongoose.connect(process.env.MONGO as string);
-
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(createHttpError(404, "Endpoint not found"));
 });
@@ -61,5 +59,7 @@ app.use(
     res.status(status).json({ error: errorMessage });
   }
 );
+
+mongoose.connect(process.env.MONGO as string);
 
 export default app;
