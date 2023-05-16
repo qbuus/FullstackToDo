@@ -1,15 +1,15 @@
-import { InferSchemaType, model, Schema } from "mongoose";
+import { Schema, model, InferSchemaType } from "mongoose";
 
 const ToDoSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, required: true },
     title: { type: String, required: true },
     text: { type: String, required: false },
-    expireAt: { type: Date, expires: 3600, default: Date.now },
+    expireAt: { type: Date, expires: 3600 },
   },
   { timestamps: true }
 );
 
-type Todo = InferSchemaType<typeof ToDoSchema>;
+type ToDo = InferSchemaType<typeof ToDoSchema>;
 
-export default model<Todo>("ToDo", ToDoSchema);
+export default model<ToDo>("ToDo", ToDoSchema);

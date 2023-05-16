@@ -4,8 +4,8 @@ import { requiredAuthentication } from "../middleware/authentication";
 import rateLimit from "express-rate-limit";
 
 const createAccountLimiter = rateLimit({
-  windowMs: 2 * 60 * 1000,
-  max: 4,
+  windowMs: 1 * 60 * 1000,
+  max: 2,
   message:
     "Too many account creation requests. It is limited to 2 request per 1 minutes",
   standardHeaders: true,

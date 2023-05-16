@@ -2,26 +2,19 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.ts",
+  "main": "api/index.ts",
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/index.ts",
-    "ts.check": "tsc --project tsconfig.json",
-    "start:dev": "npx nodemon",
-    "add-build": "git add dist",
+    "start": "nodemon api/index.ts",
     "eslint": "eslint . --ext .ts",
-    "build": "tsc",
-    "vercel-build": "echo hello"
+    "build": "tsc -p ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "-": "^0.0.1",
-    "@vercel/node": "^2.14.2",
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^5.0.0",
-    "connect-mongodb-session": "^3.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "envalid": "^7.3.1",
@@ -40,7 +33,6 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/bcryptjs": "^2.4.2",
-    "@types/connect-mongodb-session": "^2.4.4",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/express-session": "^1.17.7",

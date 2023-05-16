@@ -9,6 +9,6 @@ export const requiredAuthentication: RequestHandler = (
   if (req.session.userId) {
     next();
   } else {
-    next(createHttpError(401, "User is not authenticated"));
+    next(createHttpError(4001, "User is not authenticated"));
   }
 };

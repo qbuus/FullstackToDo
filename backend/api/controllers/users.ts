@@ -90,7 +90,7 @@ export const signUp: RequestHandler<
 
     req.session.userId = userCreate._id;
 
-    res.status(200).json(userCreate);
+    res.json(userCreate);
   } catch (error) {
     next(error);
   }
@@ -128,7 +128,8 @@ export const SignIn: RequestHandler<
     }
 
     req.session.userId = existingUser._id;
-    res.status(201).json(existingUser);
+
+    res.status(200).json(existingUser);
   } catch (error) {
     next(error);
   }
