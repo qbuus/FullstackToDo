@@ -1,6 +1,8 @@
 import { SignUpBody, SignInBody, User } from "../models/User";
 import { ToDoInput, ToDoBody } from "../models/ToDo";
 
+const mainRoute = "http://localhost:8010";
+
 async function fetchData(
   input: RequestInfo,
   init?: RequestInit
@@ -26,13 +28,16 @@ async function fetchData(
 export async function SignUpFunction(
   credentials: SignUpBody
 ): Promise<User> {
-  const response = await fetchData("/api/users/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "Application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
+  const response = await fetchData(
+    `${mainRoute}/api/users/signup`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify(credentials),
+    }
+  );
   return response.json();
 }
 
