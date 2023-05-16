@@ -27,7 +27,7 @@ export async function SignUpFunction(
   credentials: SignUpBody
 ): Promise<User> {
   const response = await fetchData(
-    "backend-qbuus.vercel.app/api/users/signup/",
+    "https://backend-qbuus.vercel.app/api/users/signup",
     {
       method: "POST",
       headers: {
@@ -41,7 +41,7 @@ export async function SignUpFunction(
 
 export async function SignOutFunction() {
   await fetchData(
-    "backend-qbuus.vercel.app/api/users/signout/",
+    "https://backend-qbuus.vercel.app/api/users/signout",
     {
       method: "POST",
     }
@@ -52,7 +52,7 @@ export async function SignInFunction(
   credentials: SignInBody
 ): Promise<User> {
   const response = await fetchData(
-    "backend-qbuus.vercel.app/api/users/signin/",
+    "https://backend-qbuus.vercel.app/api/users/signin",
     {
       method: "POST",
       headers: {
@@ -66,7 +66,7 @@ export async function SignInFunction(
 
 export async function fetchToDos(): Promise<ToDoBody[]> {
   const reponse = await fetchData(
-    "backend-qbuus.vercel.app/api/todo/",
+    "https://backend-qbuus.vercel.app/api/todo",
     {
       method: "GET",
     }
@@ -78,7 +78,7 @@ export async function createToDo(
   toDo: ToDoInput
 ): Promise<ToDoBody> {
   const response = await fetchData(
-    "backend-qbuus.vercel.app/api/todo/",
+    "https://backend-qbuus.vercel.app/api/todo",
     {
       method: "POST",
       headers: {
@@ -95,7 +95,7 @@ export async function updateNote(
   toDo: ToDoInput
 ): Promise<ToDoBody> {
   const response = await fetchData(
-    `backend-qbuus.vercel.app/api/todo/${toDoId}/`,
+    `https://backend-qbuus.vercel.app/api/todo/${toDoId}`,
     {
       method: "PATCH",
       headers: {
@@ -109,7 +109,7 @@ export async function updateNote(
 
 export async function deleteToDo(toDoId: string) {
   await fetchData(
-    "backend-qbuus.vercel.app/api/todo/" + toDoId,
+    "https://backend-qbuus.vercel.app/api/todo/" + toDoId,
     {
       method: "DELETE",
     }
