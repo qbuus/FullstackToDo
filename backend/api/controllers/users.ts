@@ -142,7 +142,9 @@ export const SignIn: RequestHandler<
       throw createHttpError(401, "invalid password");
     }
 
-    req.session.userId = existingUser._id;
+    if (existingUser._id !== req.session.userId) {
+      req.session.userId = existingUser._id;
+    }
 
     res.status(200).json(existingUser);
   } catch (error) {
