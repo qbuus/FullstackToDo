@@ -23,7 +23,10 @@ const app = express();
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(
-  cors({ origin: "http://localhost:3000", credentials: true })
+  cors({
+    origin: "https://fullstack-to-do-six.vercel.app",
+    credentials: true,
+  })
 );
 app.use(express.json());
 
