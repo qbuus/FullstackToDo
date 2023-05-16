@@ -4,8 +4,8 @@ import { requiredAuthentication } from "../middleware/authentication";
 import rateLimit from "express-rate-limit";
 
 const createAccountLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000,
-  max: 2,
+  windowMs: 5 * 60 * 1000,
+  max: 20,
   message:
     "Too many account creation requests. It is limited to 2 request per 1 minutes",
   standardHeaders: true,
@@ -26,7 +26,7 @@ router.post(
   users.SignIn
 );
 router.get(
-  "/users/",
+  "/users",
   requiredAuthentication,
   users.getAuthenticated
 );
