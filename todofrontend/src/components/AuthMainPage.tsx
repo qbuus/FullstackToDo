@@ -159,7 +159,7 @@ export default function AuthMainPage() {
         </div>
       )}
       {error && (
-        <p className="fs-3 text-center mt-2">
+        <p className="fs-3 text-center mt-2 vh-100">
           Something went wrong. Refresh the page
         </p>
       )}

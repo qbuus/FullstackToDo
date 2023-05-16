@@ -54,7 +54,9 @@ export async function SignInFunction(
     `${mainRoute}/api/users/signin`,
     {
       method: "POST",
-      headers: { "Content-Type": "Application/json" },
+      headers: {
+        "Content-Type": "Application/json",
+      },
       body: JSON.stringify(credentials),
     }
   );
