@@ -29,7 +29,7 @@ export async function SignUpFunction(
   credentials: SignUpBody
 ): Promise<User> {
   const response = await fetchData(
-    `https://fullstack-to-do-qbuus.vercel.app/api/users/signup`,
+    `https://backend-qbuus.vercel.app/api/users/signup`,
     {
       method: "POST",
       headers: {

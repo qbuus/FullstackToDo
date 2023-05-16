@@ -14,18 +14,17 @@ import ToDoRoutes from "./routes/ToDo";
 import UserRoutes from "./routes/Users";
 import cors from "cors";
 import mongoose from "mongoose";
+import helmet from "helmet";
 
 const PORT = env.PORT;
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "http://192.168.1.52:3000",
-    credentials: true,
-  })
-);
 app.use(morgan("dev"));
+app.use(helmet());
+app.use(
+  cors({ origin: "http://localhost:3000", credentials: true })
+);
 app.use(express.json());
 
 app.use(

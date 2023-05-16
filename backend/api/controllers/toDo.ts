@@ -23,6 +23,11 @@ export const getToDos: RequestHandler = async (
   res,
   next
 ) => {
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader(
+    "Cache-Control",
+    "s-max-age=1, stale-while-revalidate"
+  );
   const authenticatedUser = req.session.userId;
   try {
     assertIsDefined(authenticatedUser);
@@ -42,6 +47,11 @@ export const getToDo: RequestHandler = async function (
   next
 ) {
   try {
+    res.setHeader("Content-Type", "text/html");
+    res.setHeader(
+      "Cache-Control",
+      "s-max-age=1, stale-while-revalidate"
+    );
     const id = req.params.id;
     const authenticatedUser = req.session.userId;
     assertIsDefined(authenticatedUser);
@@ -68,6 +78,11 @@ export const createToDo: RequestHandler<
   CreateToDoBody,
   unknown
 > = async (req, res, next) => {
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader(
+    "Cache-Control",
+    "s-max-age=1, stale-while-revalidate"
+  );
   try {
     const title = req.body.title;
     const text = req.body.text;
@@ -96,6 +111,11 @@ export const updateToDos: RequestHandler<
   UpdateToDos,
   unknown
 > = async (req, res, next) => {
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader(
+    "Cache-Control",
+    "s-max-age=1, stale-while-revalidate"
+  );
   try {
     const id = req.params.id;
     const newTitle = req.body.title;
@@ -137,6 +157,11 @@ export const deleteToDo: RequestHandler = async (
   res,
   next
 ) => {
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader(
+    "Cache-Control",
+    "s-max-age=1, stale-while-revalidate"
+  );
   try {
     const id = req.params.id;
     const authenticatedUser = req.session.userId;

@@ -20,6 +20,11 @@ export const getAuthenticated: RequestHandler = async (
   res,
   next
 ) => {
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader(
+    "Cache-Control",
+    "s-max-age=1, stale-while-revalidate"
+  );
   try {
     const userAuthenticatin = await user
       .findById(req.session.userId)
@@ -37,6 +42,11 @@ export const signUp: RequestHandler<
   SigningUp,
   unknown
 > = async (req, res, next) => {
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader(
+    "Cache-Control",
+    "s-max-age=1, stale-while-revalidate"
+  );
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
@@ -102,6 +112,11 @@ export const SignIn: RequestHandler<
   SigningIn,
   unknown
 > = async (req, res, next) => {
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader(
+    "Cache-Control",
+    "s-max-age=1, stale-while-revalidate"
+  );
   const username = req.body.username;
   const password = req.body.password;
   try {
@@ -136,6 +151,11 @@ export const SignIn: RequestHandler<
 };
 
 export const SingOut: RequestHandler = (req, res, next) => {
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader(
+    "Cache-Control",
+    "s-max-age=1, stale-while-revalidate"
+  );
   try {
     req.session.destroy((error) => {
       if (error) {
