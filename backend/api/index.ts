@@ -24,7 +24,7 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(
   cors({
-    origin: "fullstack-to-do-six.vercel.app",
+    origin: "https://fullstack-to-do-six.vercel.app",
     credentials: true,
   })
 );
