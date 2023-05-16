@@ -15,11 +15,16 @@ import UserRoutes from "./routes/Users";
 import cors from "cors";
 import mongoose from "mongoose";
 
-const PORT = env.PORT || 8020;
+const PORT = env.PORT;
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://192.168.1.52:3000",
+    credentials: true,
+  })
+);
 app.use(morgan("dev"));
 app.use(express.json());
 
