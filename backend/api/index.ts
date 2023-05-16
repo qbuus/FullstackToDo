@@ -33,7 +33,7 @@ app.use(
       // 1 hour //
     },
     rolling: true,
-    store: MongoStore.create({ mongoUrl: env.MONGO }),
+    store: MongoStore.create({ mongoUrl: env.MONGODB_URL }),
   })
 );
 
@@ -64,7 +64,7 @@ app.use(
 );
 
 mongoose
-  .connect(env.MONGO)
+  .connect(env.MONGODB_URL)
   .then(() => {
     if (!PORT) {
       return;
