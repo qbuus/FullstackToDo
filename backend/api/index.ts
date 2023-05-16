@@ -63,17 +63,12 @@ app.use(
   }
 );
 
-mongoose
-  .connect(env.MONGODB_URL)
-  .then(() => {
-    if (!PORT) {
-      return;
-    } else {
-      app.listen(PORT, () => {
-        console.log(`server is running`);
-      });
-    }
-  })
-  .catch(console.error);
+mongoose.connect(env.MONGODB_URL);
+
+if (PORT) {
+  app.listen(PORT, () => {
+    console.log(`server is running ${PORT}`);
+  });
+}
 
 export default app;
