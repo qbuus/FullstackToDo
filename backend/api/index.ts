@@ -20,16 +20,15 @@ const PORT = env.PORT;
 
 const app = express();
 
-app.use(morgan("dev"));
+app.use(morgan("tiny"));
 app.use(helmet());
 app.use(
   cors({
-    origin: "https://fullstack-to-do-six.vercel.app",
+    origin: "*",
     credentials: true,
   })
 );
 app.use(express.json());
-
 app.use(
   session({
     secret: env.SESSION_SECRET,

@@ -10,7 +10,7 @@ type CreateToDoBody = {
 };
 
 type UpdateToDo = {
-  id: string;
+  todoId: string;
 };
 
 type UpdateToDos = {
@@ -23,17 +23,12 @@ export const getToDos: RequestHandler = async (
   res,
   next
 ) => {
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader(
-    "Cache-Control",
-    "s-max-age=1, stale-while-revalidate"
-  );
-  const authenticatedUser = req.session.userId;
+  const authenticatedUserId = req.session.userId;
   try {
-    assertIsDefined(authenticatedUser);
+    assertIsDefined(authenticatedUserId);
 
     const ToDos = await TodoSchema.find({
-      userId: authenticatedUser,
+      userId: authenticatedUserId,
     }).exec();
     res.status(200).json(ToDos);
   } catch (error) {
@@ -46,24 +41,26 @@ export const getToDo: RequestHandler = async function (
   res,
   next
 ) {
+  const todoId = req.params.todoId;
+  const authenticatedUser = req.session.userId;
   try {
-    res.setHeader("Content-Type", "text/html");
-    res.setHeader(
-      "Cache-Control",
-      "s-max-age=1, stale-while-revalidate"
-    );
-    const id = req.params.id;
-    const authenticatedUser = req.session.userId;
     assertIsDefined(authenticatedUser);
 
-    if (!mongoose.isValidObjectId(id)) {
+    if (!mongoose.isValidObjectId(todoId)) {
       throw createHttpError(400, "invalid ToDo id");
     }
 
-    const ToDo = await TodoSchema.findById({ id }).exec();
+    const ToDo = await TodoSchema.findById(todoId).exec();
 
     if (!ToDo) {
       createHttpError(404, "To Do Not Found");
+    }
+
+    if (!ToDo?.userId.equals(authenticatedUser)) {
+      throw createHttpError(
+        401,
+        "You can not access this todo"
+      );
     }
 
     res.status(200).json(ToDo);
@@ -78,19 +75,14 @@ export const createToDo: RequestHandler<
   CreateToDoBody,
   unknown
 > = async (req, res, next) => {
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader(
-    "Cache-Control",
-    "s-max-age=1, stale-while-revalidate"
-  );
+  const title = req.body.title;
+  const text = req.body.text;
+  const authenticatedUser = req.session.userId;
   try {
-    const title = req.body.title;
-    const text = req.body.text;
-    const authenticatedUser = req.session.userId;
     assertIsDefined(authenticatedUser);
 
     if (!title) {
-      createHttpError(400, "Please fill in the fields");
+      createHttpError(400, "Please fill in");
     }
 
     const newToDo = await TodoSchema.create({
@@ -99,7 +91,7 @@ export const createToDo: RequestHandler<
       text: text,
       expireAt: new Date(),
     });
-    res.status(200).json(newToDo);
+    res.status(201).json(newToDo);
   } catch (error) {
     next(error);
   }
@@ -111,19 +103,14 @@ export const updateToDos: RequestHandler<
   UpdateToDos,
   unknown
 > = async (req, res, next) => {
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader(
-    "Cache-Control",
-    "s-max-age=1, stale-while-revalidate"
-  );
+  const todoId = req.params.todoId;
+  const newTitle = req.body.title;
+  const newText = req.body.text;
+  const authenticatedUser = req.session.userId;
   try {
-    const id = req.params.id;
-    const newTitle = req.body.title;
-    const newText = req.body.text;
-    const authenticatedUser = req.session.userId;
     assertIsDefined(authenticatedUser);
 
-    if (!mongoose.isValidObjectId(id)) {
+    if (!mongoose.isValidObjectId(todoId)) {
       throw createHttpError(400, "invalid ToDo id");
     }
 
@@ -131,7 +118,7 @@ export const updateToDos: RequestHandler<
       createHttpError(400, "Please fill in the title field");
     }
 
-    const ToDo = await TodoSchema.findById({ _id: id }).exec();
+    const ToDo = await TodoSchema.findById(todoId).exec();
 
     if (!ToDo) {
       throw createHttpError(404, "To Do not found");
@@ -157,22 +144,16 @@ export const deleteToDo: RequestHandler = async (
   res,
   next
 ) => {
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader(
-    "Cache-Control",
-    "s-max-age=1, stale-while-revalidate"
-  );
+  const todoId = req.params.todoId;
+  const authenticatedUser = req.session.userId;
   try {
-    const id = req.params.id;
-    const authenticatedUser = req.session.userId;
-
     assertIsDefined(authenticatedUser);
 
-    if (!mongoose.isValidObjectId(id)) {
+    if (!mongoose.isValidObjectId(todoId)) {
       throw createHttpError(400, "invalid todo id ");
     }
 
-    const toDo = await TodoSchema.findById(id).exec();
+    const toDo = await TodoSchema.findById(todoId).exec();
 
     if (!toDo) {
       throw createHttpError(404, "todo not found");
@@ -182,8 +163,8 @@ export const deleteToDo: RequestHandler = async (
       throw createHttpError(401, "not authorized. No access");
     }
 
-    await toDo.deleteOne({ _id: id });
-    res.sendStatus(200);
+    await toDo.deleteOne({ _id: todoId });
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }

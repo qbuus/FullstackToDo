@@ -20,11 +20,6 @@ export const getAuthenticated: RequestHandler = async (
   res,
   next
 ) => {
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader(
-    "Cache-Control",
-    "s-max-age=1, stale-while-revalidate"
-  );
   try {
     const userAuthenticatin = await user
       .findById(req.session.userId)
@@ -42,11 +37,6 @@ export const signUp: RequestHandler<
   SigningUp,
   unknown
 > = async (req, res, next) => {
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader(
-    "Cache-Control",
-    "s-max-age=1, stale-while-revalidate"
-  );
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
@@ -57,9 +47,7 @@ export const signUp: RequestHandler<
     }
 
     const existingUser = await user
-      .findOne({
-        username: username,
-      })
+      .findOne({ username: username })
       .exec();
 
     if (existingUser) {
@@ -100,7 +88,13 @@ export const signUp: RequestHandler<
 
     req.session.userId = userCreate._id;
 
-    res.json(userCreate);
+    // // req.session.userId = userCreate._id;
+    // const token = jwt.sign(
+    //   { id: userCreate._id, email: userCreate.email },
+    //   env.SESSION_SECRET
+    // );
+
+    res.status(201).json(userCreate);
   } catch (error) {
     next(error);
   }
@@ -112,11 +106,6 @@ export const SignIn: RequestHandler<
   SigningIn,
   unknown
 > = async (req, res, next) => {
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader(
-    "Cache-Control",
-    "s-max-age=1, stale-while-revalidate"
-  );
   const username = req.body.username;
   const password = req.body.password;
   try {
@@ -143,27 +132,29 @@ export const SignIn: RequestHandler<
     }
 
     req.session.userId = existingUser._id;
+    // req.session.userId = existingUser._id;
+    // const token = jwt.sign(
+    //   { id: existingUser._id, email: existingUser.email },
+    //   env.SESSION_SECRET
+    // );
 
-    res.status(200).json(existingUser);
+    res.status(201).json(existingUser);
   } catch (error) {
     next(error);
   }
 };
 
 export const SingOut: RequestHandler = (req, res, next) => {
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader(
-    "Cache-Control",
-    "s-max-age=1, stale-while-revalidate"
-  );
-  try {
-    req.session.destroy((error) => {
-      if (error) {
-        next(error);
-      }
+  req.session.destroy((error) => {
+    if (error) {
+      next(error);
+    } else {
       res.sendStatus(200);
-    });
-  } catch (error) {
-    next(error);
-  }
+    }
+  });
 };
+
+// res.setHeader("Content-Type", "text/html");
+//   res.setHeader(
+//     "Cache-Control",
+//     "s-max-age=1, stale-while-revalidate"
