@@ -15,6 +15,7 @@ import UserRoutes from "./routes/Users";
 import cors from "cors";
 import mongoose from "mongoose";
 import helmet from "helmet";
+import cookieParser from "cookie-parser";
 
 const PORT = env.PORT;
 
@@ -24,6 +25,7 @@ app.use(morgan("tiny"));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   session({
     secret: env.SESSION_SECRET,
