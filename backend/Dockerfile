@@ -10,5 +10,5 @@ COPY . . /app/
 
 CMD ["npm", "start"]
 
-EXPOSE 8010 8020
+EXPOSE 8010
 
