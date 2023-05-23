@@ -88,13 +88,7 @@ export const signUp: RequestHandler<
 
     req.session.userId = userCreate._id;
 
-    // // req.session.userId = userCreate._id;
-    // const token = jwt.sign(
-    //   { id: userCreate._id, email: userCreate.email },
-    //   env.SESSION_SECRET
-    // );
-
-    res.status(201).json(userCreate);
+    res.status(200).json(userCreate);
   } catch (error) {
     next(error);
   }
@@ -132,13 +126,8 @@ export const SignIn: RequestHandler<
     }
 
     req.session.userId = existingUser._id;
-    // req.session.userId = existingUser._id;
-    // const token = jwt.sign(
-    //   { id: existingUser._id, email: existingUser.email },
-    //   env.SESSION_SECRET
-    // );
 
-    res.status(201).json(existingUser);
+    res.status(200).json(existingUser);
   } catch (error) {
     next(error);
   }
@@ -153,8 +142,3 @@ export const SingOut: RequestHandler = (req, res, next) => {
     }
   });
 };
-
-// res.setHeader("Content-Type", "text/html");
-//   res.setHeader(
-//     "Cache-Control",
-//     "s-max-age=1, stale-while-revalidate"

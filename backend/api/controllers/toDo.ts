@@ -91,7 +91,7 @@ export const createToDo: RequestHandler<
       text: text,
       expireAt: new Date(),
     });
-    res.status(201).json(newToDo);
+    res.status(200).json(newToDo);
   } catch (error) {
     next(error);
   }

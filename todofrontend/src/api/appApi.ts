@@ -1,6 +1,8 @@
 import { SignUpBody, SignInBody, User } from "../models/User";
 import { ToDoInput, ToDoBody } from "../models/ToDo";
 
+const baseUrl = "https://fulldoapi.onrender.com";
+
 async function fetchData(
   input: RequestInfo,
   init?: RequestInit
@@ -26,18 +28,21 @@ async function fetchData(
 export async function SignUpFunction(
   credentials: SignUpBody
 ): Promise<User> {
-  const response = await fetchData("/api/users/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "Application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
+  const response = await fetchData(
+    `${baseUrl}/api/users/signup`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify(credentials),
+    }
+  );
   return response.json();
 }
 
 export async function SignOutFunction() {
-  await fetchData("/api/users/signout", {
+  await fetchData(`${baseUrl}/api/users/signout`, {
     method: "POST",
   });
 }
@@ -45,13 +50,16 @@ export async function SignOutFunction() {
 export async function SignInFunction(
   credentials: SignInBody
 ): Promise<User> {
-  const response = await fetchData("/api/users/signin", {
-    method: "POST",
-    headers: {
-      "Content-Type": "Application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
+  const response = await fetchData(
+    `${baseUrl}/api/users/signin`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify(credentials),
+    }
+  );
   return response.json();
 }
 
@@ -65,7 +73,7 @@ export async function fetchToDos(): Promise<ToDoBody[]> {
 export async function createToDo(
   toDo: ToDoInput
 ): Promise<ToDoBody> {
-  const response = await fetchData("/api/todo", {
+  const response = await fetchData(`${baseUrl}/api/todo`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -79,18 +87,21 @@ export async function updateNote(
   todoId: string,
   toDo: ToDoInput
 ): Promise<ToDoBody> {
-  const response = await fetchData("/api/todo/" + todoId, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(toDo),
-  });
+  const response = await fetchData(
+    `${baseUrl}/api/todo/` + todoId,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(toDo),
+    }
+  );
   return response.json();
 }
 
 export async function deleteToDo(todoId: string) {
-  await fetchData("/api/todo/" + todoId, {
+  await fetchData(`${baseUrl}api/todo/` + todoId, {
     method: "DELETE",
   });
 }

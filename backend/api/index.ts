@@ -9,23 +9,30 @@ import morgan from "morgan";
 import createHttpError, { isHttpError } from "http-errors";
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import { mongoConnection } from "./MongoConnection";
+import * as path from "path";
 import env from "./utils/validateEnv";
 import ToDoRoutes from "./routes/ToDo";
 import UserRoutes from "./routes/Users";
 import cors from "cors";
-import mongoose from "mongoose";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
+import { corsOptions } from "./corsOptions";
 
 const PORT = env.PORT;
 
 const app = express();
 
+mongoConnection();
+
+console.log(process.env.NODE_ENV);
+
 app.use(morgan("tiny"));
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+app.use("/", express.static(path.join(__dirname, "public")));
 app.use(
   session({
     secret: env.SESSION_SECRET,
@@ -65,8 +72,6 @@ app.use(
     res.status(status).json({ error: errorMessage });
   }
 );
-
-mongoose.connect(env.MONGODB_URL);
 
 if (PORT) {
   app.listen(PORT, () => {
