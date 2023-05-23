@@ -64,7 +64,7 @@ export async function SignInFunction(
 }
 
 export async function fetchToDos(): Promise<ToDoBody[]> {
-  const reponse = await fetchData("/api/todo", {
+  const reponse = await fetchData(`${baseUrl}/api/todo`, {
     method: "GET",
   });
   return reponse.json();
