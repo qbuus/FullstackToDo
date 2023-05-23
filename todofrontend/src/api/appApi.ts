@@ -107,7 +107,7 @@ export async function updateNote(
 }
 
 export async function deleteToDo(todoId: string) {
-  await fetchData(`${baseUrl}api/todo/` + todoId, {
+  await fetchData(`${baseUrl}/api/todo/` + todoId, {
     method: "DELETE",
     credentials: "include",
   });

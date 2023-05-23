@@ -21,7 +21,7 @@ export default function EditModal() {
   const data = useSelector(
     (state: RootState) => state.EditSingleToDo
   );
-  console.log(data);
+
   const {
     register,
     handleSubmit,
