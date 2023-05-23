@@ -32,6 +32,7 @@ export async function SignUpFunction(
     `${baseUrl}/api/users/signup`,
     {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "Application/json",
       },
@@ -44,6 +45,7 @@ export async function SignUpFunction(
 export async function SignOutFunction() {
   await fetchData(`${baseUrl}/api/users/signout`, {
     method: "POST",
+    credentials: "include",
   });
 }
 
@@ -54,6 +56,7 @@ export async function SignInFunction(
     `${baseUrl}/api/users/signin`,
     {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "Application/json",
       },
