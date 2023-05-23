@@ -30,7 +30,7 @@ export const getToDos: RequestHandler = async (
     const ToDos = await TodoSchema.find({
       userId: authenticatedUserId,
     }).exec();
-    req.session.save();
+    req.session.save((err) => console.log(err));
     res.status(200).json(ToDos);
   } catch (error) {
     next(error);
@@ -63,6 +63,7 @@ export const getToDo: RequestHandler = async function (
         "You can not access this todo"
       );
     }
+    req.session.save((err) => console.log(err));
     res.status(200).json(ToDo);
   } catch (error) {
     next(error);
@@ -91,6 +92,7 @@ export const createToDo: RequestHandler<
       text: text,
       expireAt: new Date(),
     });
+    req.session.save((err) => console.log(err));
     res.status(200).json(newToDo);
   } catch (error) {
     next(error);
@@ -132,7 +134,7 @@ export const updateToDos: RequestHandler<
     ToDo.text = newText;
 
     const updated = await ToDo.save();
-
+    req.session.save((err) => console.log(err));
     res.status(200).json(updated);
   } catch (error) {
     next(error);
@@ -164,6 +166,7 @@ export const deleteToDo: RequestHandler = async (
     }
 
     await toDo.deleteOne({ _id: id });
+    req.session.save((err) => console.log(err));
     res.sendStatus(200);
   } catch (error) {
     next(error);

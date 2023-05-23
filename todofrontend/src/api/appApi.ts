@@ -79,6 +79,7 @@ export async function createToDo(
 ): Promise<ToDoBody> {
   const response = await fetchData(`${baseUrl}/api/todo`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -95,6 +96,7 @@ export async function updateNote(
     `${baseUrl}/api/todo/` + todoId,
     {
       method: "PATCH",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -107,5 +109,6 @@ export async function updateNote(
 export async function deleteToDo(todoId: string) {
   await fetchData(`${baseUrl}api/todo/` + todoId, {
     method: "DELETE",
+    credentials: "include",
   });
 }

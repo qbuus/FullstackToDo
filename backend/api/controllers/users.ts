@@ -87,7 +87,7 @@ export const signUp: RequestHandler<
     });
 
     req.session.userId = userCreate._id;
-
+    req.session.save((err) => console.log(err));
     res.status(200).json(userCreate);
   } catch (error) {
     next(error);
@@ -139,6 +139,7 @@ export const SingOut: RequestHandler = (req, res, next) => {
       next(error);
     } else {
       res.sendStatus(200);
+      req.session.save((err) => console.log(err));
     }
   });
 };
