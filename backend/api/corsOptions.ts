@@ -2,11 +2,14 @@ import dotenv from "dotenv";
 dotenv.config();
 import * as cors from "cors";
 
-const whitelist = [process.env.ORIGIN];
+const whitelist = ["https://fulldo.onrender.com"];
 
 export const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
+    if (
+      whitelist.indexOf(origin as string) !== -1 ||
+      !origin
+    ) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
