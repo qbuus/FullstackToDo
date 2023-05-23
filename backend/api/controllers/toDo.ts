@@ -30,6 +30,7 @@ export const getToDos: RequestHandler = async (
     const ToDos = await TodoSchema.find({
       userId: authenticatedUserId,
     }).exec();
+    req.session.save();
     res.status(200).json(ToDos);
   } catch (error) {
     next(error);
@@ -62,7 +63,6 @@ export const getToDo: RequestHandler = async function (
         "You can not access this todo"
       );
     }
-
     res.status(200).json(ToDo);
   } catch (error) {
     next(error);

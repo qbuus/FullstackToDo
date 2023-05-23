@@ -22,7 +22,7 @@ import { corsOptions } from "./corsOptions";
 const PORT = env.PORT;
 
 const app = express();
-
+app.set("trust proxy", 1);
 mongoConnection();
 
 console.log(process.env.NODE_ENV);

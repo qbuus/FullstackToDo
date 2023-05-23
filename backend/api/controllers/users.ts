@@ -126,7 +126,7 @@ export const SignIn: RequestHandler<
     }
 
     req.session.userId = existingUser._id;
-
+    req.session.save((err) => console.log(err));
     res.status(200).json(existingUser);
   } catch (error) {
     next(error);
