@@ -20,7 +20,7 @@ export default function Footer() {
   const formattedDate = dateFormat(date);
 
   return (
-    <footer className="page-footer font-small pt-4 blue bg-dark text-white">
+    <footer className="page-footer font-small pt-4 blue bg-dark text-white mt-2">
       <div className="container-fluid text-center text-md-left">
         <div className="row">
           <div className="col-md-6 mt-md-0 mt-3">
@@ -39,7 +39,10 @@ export default function Footer() {
               </li>
               <li>
                 <a href="https://www.linkedin.com/in/jakub-ko%C5%82cz-11843a267/">
-                  <GrLinkedinOption size={30} color="white" />
+                  <GrLinkedinOption
+                    size={30}
+                    color="white"
+                  />
                 </a>
               </li>
             </ul>

@@ -66,14 +66,19 @@ export default function AuthMainPage() {
           <Button
             variant="dark"
             as="button"
-            className="flexCenter mb-4 mt-4 blockCenter"
+            className="flexCenter mb-4 mt-5 blockCenter"
           >
             <div className="d-flex px-3 text-white px-1 fs-4">
               Add task
             </div>
           </Button>
         </Link>
-        <Row xs={1} md={2} xl={3} className={"g-4 toDoGrid"}>
+        <Row
+          xs={1}
+          md={2}
+          xl={3}
+          className={"g-4 toDoGrid"}
+        >
           {ToDoSelector?.map((todo) => (
             <Col key={todo._id}>
               <Card className={"toDoCard toDo"}>
@@ -104,7 +109,9 @@ export default function AuthMainPage() {
                       as="button"
                       variant="light"
                       className="edit px-2 py-1"
-                      onClick={() => dispatch(EditToDo(todo))}
+                      onClick={() =>
+                        dispatch(EditToDo(todo))
+                      }
                     >
                       Edit
                     </Button>
