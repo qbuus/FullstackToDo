@@ -23,8 +23,13 @@ export default function TextInputField({
   ...props
 }: TextInputFieldProps) {
   return (
-    <Form.Group className="mb-3" controlId={name + "input"}>
-      <Form.Label className="text-center">{label}</Form.Label>
+    <Form.Group
+      className="mb-3"
+      controlId={name + "input"}
+    >
+      <Form.Label className="text-center">
+        {label}
+      </Form.Label>
       <Form.Control
         {...props}
         {...register(name, registerOptions)}
