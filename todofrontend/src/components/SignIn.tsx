@@ -76,11 +76,14 @@ export default function SignIn() {
                     <h2 className="fw-bold mb-2 text-uppercase">
                       Sign in
                     </h2>
-                    <p className="mb-5">
-                      Please enter your username and password
+                    <p className="mb-5 mt-3">
+                      Please enter your username and
+                      password
                     </p>
                     <div className="mb-3">
-                      <Form onSubmit={handleSubmit(onSubmit)}>
+                      <Form
+                        onSubmit={handleSubmit(onSubmit)}
+                      >
                         <TextInputField
                           name="username"
                           label="Username"
