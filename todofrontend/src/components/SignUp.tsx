@@ -68,21 +68,33 @@ export default function SignUp() {
                     <Alert variant="danger">{error}</Alert>
                   )}
                   <div className="mb-3 mt-md-4">
-                    <h2 className="fw-bold mb-2 text-uppercase">
+                    <h2 className="fw-bold mb-4 text-uppercase">
                       Sign up
                     </h2>
-                    <div className="mb-5 mt-3">
+                    <div className="mb-5">
                       <p>Please enter your data!</p>
                       <div>
-                        <p className="fw-bold">
-                          Your account will be automatically
-                          deleted after 1 hour
+                        <div>
+                          <p className="fw-bold">
+                            Api response takes too long ?
+                          </p>
+                          <p className="fw-bold">
+                            First response can take more
+                            time
+                          </p>
+                        </div>
+                        <p>
+                          Your account will be
+                          automatically deleted after 1
+                          hour
                         </p>
                       </div>
                     </div>
 
                     <div className="mb-3">
-                      <Form onSubmit={handleSubmit(onSubmit)}>
+                      <Form
+                        onSubmit={handleSubmit(onSubmit)}
+                      >
                         <TextInputField
                           name="username"
                           label="Username"
